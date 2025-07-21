@@ -1,6 +1,8 @@
 <h1>Dierapp</h1>
 
-naam: {{ name }}
+naam: {{ name | uppercase}}
+
+price: {{price | euro}}
 
 <!-- @if (typeof name === 'number') {
   {{name}}

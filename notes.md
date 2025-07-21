@@ -96,6 +96,21 @@ npm install --global @angular/cli
 - `ng e2e`
 - `ng generate`
 
+## Pipes
+
+Default pipes:
+
+- `currency`
+- `uppercase`
+  - kan ook met CSS: `text-transform: uppercase;`
+- `lowercase`
+  - kan ook met CSS: `text-transform: lowercase;`
+- `titlecase`
+- `date`
+- `decimal`
+- `json` (debugging)
+- `async` (gaan we ~woensdag zien)
+
 ## Modern Angular-development
 
 Angular zit momenteel in een nogal lang migratietraject. Maar, een paar moderne keuzes:

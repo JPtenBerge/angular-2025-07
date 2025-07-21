@@ -1,5 +1,7 @@
+import { CurrencyPipe, LowerCasePipe, UpperCasePipe } from '@angular/common';
 import { Component, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { EuroPipe } from './euro.pipe';
 
 interface Animal {
 	id: number;
@@ -10,12 +12,14 @@ interface Animal {
 
 @Component({
 	selector: 'app-root',
-	imports: [RouterOutlet],
+	imports: [RouterOutlet, CurrencyPipe, LowerCasePipe, UpperCasePipe, EuroPipe],
 	templateUrl: './app.html',
 	styleUrl: './app.css',
 })
 export class App {
-	name: string | number = 'JP';
+	name = 'JP';
+
+	price = 12345678.90;
 
 	animals: Animal[] = [
 		{
