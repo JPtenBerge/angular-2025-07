@@ -58,7 +58,7 @@ concurrenten:
 - React - Meta
 - Vue - Evan You - ex-Google
 - Svelte - Rich Harris - Vercel
-- Solid - Ryan Cavalano - Vercel
+- Solid - Ryan Carniato - Vercel
 - Qwik - Misko Hevery - ex-Google
 - Blazor - Microsoft
 - Knockout - Steve Sanderson - Microsoft
