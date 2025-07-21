@@ -1,7 +1,13 @@
-import { CurrencyPipe, LowerCasePipe, UpperCasePipe } from '@angular/common';
+import {
+	CurrencyPipe,
+	JsonPipe,
+	LowerCasePipe,
+	UpperCasePipe,
+} from '@angular/common';
 import { Component, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { EuroPipe } from './euro.pipe';
+import { FormsModule } from '@angular/forms';
 
 interface Animal {
 	id: number;
@@ -12,15 +18,11 @@ interface Animal {
 
 @Component({
 	selector: 'app-root',
-	imports: [RouterOutlet, CurrencyPipe, LowerCasePipe, UpperCasePipe, EuroPipe],
+	imports: [FormsModule, JsonPipe],
 	templateUrl: './app.html',
 	styleUrl: './app.css',
 })
 export class App {
-	name = 'JP';
-
-	price = 12345678.90;
-
 	animals: Animal[] = [
 		{
 			id: 4,
@@ -44,9 +46,23 @@ export class App {
 				'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fanimalia-life.club%2Fdata_images%2Fparrot%2Fparrot4.jpg&f=1&nofb=1&ipt=08373a91ce5d5a56ada1f3b0df8af9ab0a19eb8416e4e5eba50c17898a21523c',
 		},
 	];
+	// newAnimal: Animal = { id: 0, maxAge: 0, photoUrl: '', species: ''};
+	newAnimal = {} as Animal;
+	// newAnimal = createAnimal();
 
-	changeName() {
-		this.name += ' Daniel';
+	addAnimal() {
+		// how to clone an object?
+
+		// ES6
+		// let clone = { ...this.newAnimal }; // strings bool numbers  - maar niet arrays/objects
+		// let clone = structuredClone(this.newAnimal); // strings bool numbers arrays/objects
+
+		this.animals.push({
+			...this.newAnimal,
+			id: Math.max(...this.animals.map((x) => x.id)) + 1,
+		});
+		// this.newAnimal = {} as Animal;
+		// newAnimal = createAnimal();
 	}
 
 	increaseMaxAge(animal: Animal) {

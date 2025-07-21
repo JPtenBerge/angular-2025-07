@@ -1,15 +1,60 @@
 <h1>Dierapp</h1>
 
-naam: {{ name | uppercase}}
+// template variables
 
-price: {{price | euro}}
+<div class="bla hoi iets" #dinges>content hier</div>
 
-<!-- @if (typeof name === 'number') {
-  {{name}}
-} -->
-<!-- <div *ngIf="typeof name === 'number'">{{name}}</div> -->
+{{ dinges.className }}
 
-<button (click)="changeName()">Verander naam</button>
+<form (submit)="addAnimal()" #f="ngForm">
+	<ol>
+		<li>
+			<label>Soort:</label>
+			<input
+				[(ngModel)]="newAnimal.species"
+				name="species"
+				required
+				pattern="[a-zA-Z -]{3,}"
+				#inputSpecies="ngModel"
+			/>
+			@if (inputSpecies.touched && inputSpecies.invalid) {
+				<span>Ongeldig</span>
+			}
+			@if (inputSpecies.touched && inputSpecies.hasError("required")) {
+				<span>Vul in aub</span>
+			}
+			@if (inputSpecies.touched && inputSpecies.hasError("pattern")) {
+				<span>Alleen letters spaties graag en minimaal 3 karakters</span>
+			}
+		</li>
+		<li>
+			<label>Max leeftijd:</label>
+			<input
+				[(ngModel)]="newAnimal.maxAge"
+				name="maxAge"
+				type="range"
+				min="0"
+				max="300"
+				step="5"
+				required
+			/>
+		</li>
+		<li>
+			<label>Foto URL:</label>
+			<input
+				type="url"
+				[(ngModel)]="newAnimal.photoUrl"
+				name="photoUrl"
+				required
+			/>
+		</li>
+		<li><button [disabled]="!f.valid">Voeg dier toe</button></li>
+		<li>
+			valid: {{ f.valid }}
+			<pre>{{ newAnimal | json }}</pre>
+		</li>
+	</ol>
+</form>
 
 <table>
 	<thead>
