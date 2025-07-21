@@ -111,6 +111,38 @@ Default pipes:
 - `json` (debugging)
 - `async` (gaan we ~woensdag zien)
 
+## Unittesten
+
+### Vitest
+
+1. Installeren:
+    ```sh
+    npm install vitest jsdom
+    ```
+2. `angular.json`:
+    ```json
+    {
+      ...
+      "test": {
+        "builder": "@angular/build:unit-test",
+        "options": {
+          "tsConfig": "tsconfig.spec.json",
+          "runner": "vitest",
+          "buildTarget": "::development"
+        }
+      }
+    }
+    ```
+3. [Handige extensie](https://marketplace.visualstudio.com/items?itemName=vitest.explorer)
+
+Handige blogposts/docs:
+
+- https://angular.dev/guide/testing/unit-tests
+- https://timdeschryver.dev/blog/angular-testing-library-with-vitest
+- https://dev.to/brandontroberts/faster-testing-with-angular-and-vitest-274n
+
+Deze laatste twee zijn vooral ter inspiratie en cherrypicken van handige zaken. Beide artikelen zijn geschreven voordat Angular officieel met Vitest-ondersteuning kwam.
+
 ## Modern Angular-development
 
 Angular zit momenteel in een nogal lang migratietraject. Maar, een paar moderne keuzes:
