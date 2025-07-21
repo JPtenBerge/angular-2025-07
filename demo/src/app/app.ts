@@ -1,13 +1,8 @@
-import {
-	CurrencyPipe,
-	JsonPipe,
-	LowerCasePipe,
-	UpperCasePipe,
-} from '@angular/common';
-import { Component, signal } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
-import { EuroPipe } from './euro.pipe';
+import { JsonPipe } from '@angular/common';
+import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { LifeComponent } from './components/life.component';
+import { Autocompleter } from './components/autocompleter/autocompleter';
 
 interface Animal {
 	id: number;
@@ -18,11 +13,12 @@ interface Animal {
 
 @Component({
 	selector: 'app-root',
-	imports: [FormsModule, JsonPipe],
+	imports: [FormsModule, JsonPipe, LifeComponent, Autocompleter],
 	templateUrl: './app.html',
 	styleUrl: './app.css',
 })
 export class App {
+	showLife = false;
 	animals: Animal[] = [
 		{
 			id: 4,

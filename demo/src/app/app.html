@@ -1,4 +1,19 @@
-<h1 class="text-3xl font-bold underline">  DierApp</h1>
+<h1 class="text-3xl font-bold underline">DierApp</h1>
+
+<h2 class="text-2xl font-bold">Autocompleter</h2>
+
+
+<app-autocompleter [data]="animals" />
+
+<h2 class="text-2xl font-bold">Leven</h2>
+
+<button (click)="showLife = !showLife">Toggle life</button>
+
+@if (showLife) {
+	<app-life />
+}
+
+<h2 class="text-2xl font-bold">Dieren</h2>
 
 <form (submit)="addAnimal()" #f="ngForm">
 	<ol>
@@ -14,11 +29,13 @@
 			@if (inputSpecies.touched && inputSpecies.invalid) {
 				<span>Ongeldig</span>
 			}
-			@if (inputSpecies.touched && inputSpecies.hasError("required")) {
+			@if (inputSpecies.touched && inputSpecies.hasError('required')) {
 				<span>Vul in aub</span>
 			}
-			@if (inputSpecies.touched && inputSpecies.hasError("pattern")) {
-				<span>Alleen letters spaties graag en minimaal 3 karakters</span>
+			@if (inputSpecies.touched && inputSpecies.hasError('pattern')) {
+				<span
+					>Alleen letters spaties graag en minimaal 3 karakters</span
+				>
 			}
 		</li>
 		<li>
