@@ -1,5 +1,5 @@
 import { JsonPipe } from '@angular/common';
-import { Component, input } from '@angular/core';
+import { Component, input, output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 @Component({
@@ -12,6 +12,7 @@ export class Autocompleter<T extends object> {
 	query?: string;
 	suggestions?: T[];
 	activeIndex: number | null = null;
+	itemSelect = output<T>();
 
 	autocomplete() {
 
@@ -44,5 +45,10 @@ export class Autocompleter<T extends object> {
 		}
 
 		this.activeIndex = 0;
+	}
+
+	select() {
+		let selectedAnimal = this.suggestions![this.activeIndex!];
+		this.itemSelect.emit(selectedAnimal);
 	}
 }

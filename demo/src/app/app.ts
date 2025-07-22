@@ -1,5 +1,5 @@
 import { JsonPipe } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, viewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { LifeComponent } from './components/life.component';
 import { Autocompleter } from './components/autocompleter/autocompleter';
@@ -46,6 +46,8 @@ export class App {
 	newAnimal = {} as Animal;
 	// newAnimal = createAnimal();
 
+	autocompleter = viewChild(Autocompleter<object>);
+
 	addAnimal() {
 		// how to clone an object?
 
@@ -59,9 +61,16 @@ export class App {
 		});
 		// this.newAnimal = {} as Animal;
 		// newAnimal = createAnimal();
+
+		// this.autocompleter().
 	}
 
 	increaseMaxAge(animal: Animal) {
 		animal.maxAge += 5;
+	}
+
+
+	handleSelect(animal: Animal) {
+		console.log('hey! er is iets geselecteerd bij el autocompleter:', animal);
 	}
 }
