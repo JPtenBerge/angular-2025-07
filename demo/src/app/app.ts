@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { LifeComponent } from './components/life.component';
 import { Autocompleter } from './components/autocompleter/autocompleter';
 import { HttpClient } from '@angular/common/http';
+import { Loading } from './components/loading/loading';
 
 interface Animal {
 	id: number;
@@ -14,13 +15,14 @@ interface Animal {
 
 @Component({
 	selector: 'app-root',
-	imports: [FormsModule, JsonPipe, LifeComponent, Autocompleter],
+	imports: [FormsModule, JsonPipe, LifeComponent, Autocompleter, Loading],
 	templateUrl: './app.html',
 	styleUrl: './app.css',
 })
 export class App {
 	showLife = false;
 	animals?: Animal[];
+	isFetchingAnimals = true;
 	newAnimal = {} as Animal;
 
 	autocompleter = viewChild(Autocompleter<object>);
@@ -31,6 +33,7 @@ export class App {
 	ngOnInit() {
 		this.http.get<Animal[]>('http://localhost:3000/animals').subscribe(animals => {
 			this.animals = animals;
+			this.isFetchingAnimals = false;
 			this.cdr.markForCheck();
 		});
 	}

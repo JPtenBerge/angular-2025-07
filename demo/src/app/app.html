@@ -66,24 +66,28 @@
 		</ol>
 	</form>
 
-	<table class="table w-auto">
-		<thead>
-			<tr>
-				<th>ID</th>
-				<th>Soort</th>
-				<th>Max leeftijd</th>
-				<th>Foto</th>
-			</tr>
-		</thead>
-		<tbody>
-			@for (animal of animals; track animal.id) {
-				<tr (mouseenter)="increaseMaxAge(animal)" [class.oud]="animal.maxAge > 50">
-					<td>{{ animal.id }}</td>
-					<td>{{ animal.species }}</td>
-					<td>{{ animal.maxAge }}</td>
-					<td><img src="{{ animal.photoUrl }}" /></td>
+	@if (isFetchingAnimals) {
+		<app-loading message="Druk bezig met dieren ophalen!" />
+	} @else {
+		<table class="table w-auto">
+			<thead>
+				<tr>
+					<th>ID</th>
+					<th>Soort</th>
+					<th>Max leeftijd</th>
+					<th>Foto</th>
 				</tr>
-			}
-		</tbody>
-	</table>
+			</thead>
+			<tbody>
+				@for (animal of animals; track animal.id) {
+					<tr (mouseenter)="increaseMaxAge(animal)" [class.oud]="animal.maxAge > 50">
+						<td>{{ animal.id }}</td>
+						<td>{{ animal.species }}</td>
+						<td>{{ animal.maxAge }}</td>
+						<td><img src="{{ animal.photoUrl }}" /></td>
+					</tr>
+				}
+			</tbody>
+		</table>
+	}
 </div>
