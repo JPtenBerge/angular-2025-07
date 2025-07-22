@@ -1,11 +1,12 @@
 import { JsonPipe } from '@angular/common';
-import { Component, input, output } from '@angular/core';
+import { Component, inject, input, output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { NavigateService } from '../../services/navigate.service';
 
 @Component({
 	selector: 'app-autocompleter',
 	imports: [FormsModule, JsonPipe],
-	templateUrl: './autocompleter.html',
+	templateUrl: 'autocompleter.html',
 })
 export class Autocompleter<T extends object> {
 	data = input.required<T[]>();
@@ -13,6 +14,8 @@ export class Autocompleter<T extends object> {
 	suggestions?: T[];
 	activeIndex: number | null = null;
 	itemSelect = output<T>();
+
+	navigateService = inject(NavigateService);
 
 	autocomplete() {
 		if (!this.query) {
@@ -33,13 +36,7 @@ export class Autocompleter<T extends object> {
 	}
 
 	next() {
-		if (this.activeIndex !== null) {
-			// module sets index to the first item. nice!
-			this.activeIndex = (this.activeIndex + 1) % this.suggestions!.length;
-			return;
-		}
-
-		this.activeIndex = 0;
+		this.activeIndex = this.navigateService.next(this.suggestions!, this.activeIndex);
 	}
 
 	select() {
