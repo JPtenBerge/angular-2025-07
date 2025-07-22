@@ -42,27 +42,15 @@ export class App {
 				'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fanimalia-life.club%2Fdata_images%2Fparrot%2Fparrot4.jpg&f=1&nofb=1&ipt=08373a91ce5d5a56ada1f3b0df8af9ab0a19eb8416e4e5eba50c17898a21523c',
 		},
 	];
-	// newAnimal: Animal = { id: 0, maxAge: 0, photoUrl: '', species: ''};
 	newAnimal = {} as Animal;
-	// newAnimal = createAnimal();
 
 	autocompleter = viewChild(Autocompleter<object>);
 
 	addAnimal() {
-		// how to clone an object?
-
-		// ES6
-		// let clone = { ...this.newAnimal }; // strings bool numbers  - maar niet arrays/objects
-		// let clone = structuredClone(this.newAnimal); // strings bool numbers arrays/objects
-
 		this.animals.push({
 			...this.newAnimal,
 			id: Math.max(...this.animals.map(x => x.id)) + 1,
 		});
-		// this.newAnimal = {} as Animal;
-		// newAnimal = createAnimal();
-
-		// this.autocompleter().
 	}
 
 	increaseMaxAge(animal: Animal) {

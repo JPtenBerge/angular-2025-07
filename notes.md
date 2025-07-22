@@ -195,7 +195,15 @@ let clone1 = { ...this.newAnimal }; // prima voor strings bool numbers  - arrays
 let clone2 = structuredClone(this.newAnimal); // strings bool numbers arrays/objects alles clone. "deep clone"
 ```
 
-## Template-driven forms
+## Forms
+
+- template-driven forms
+  - hier staat alles in je HTML
+  - herkenbaar aan `[(ngModel)]`
+- reactive forms
+  - formdefinitie staat in TypeScript
+
+### Template-driven forms
 
 Je binding object initializeren:
 
