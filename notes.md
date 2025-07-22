@@ -113,26 +113,52 @@ Default pipes:
 
 ## Unittesten
 
+**Unittesten**
+- zo klein mogelijk stukje code testen
+- hier roep je code aan
+- Angular is hier wat fanatieker mee
+
+**Integratietest**
+- onderdelen
+  - class met class
+  - HTML renderen
+- hier roep je code aan
+
+**End-to-end test**
+- ook wel UI test
+- UI-functionaliteit
+- hier roep je code NIET aan
+
+Standaard bij Angular:
+- Karma: testrunner (al meerdere jaren deprecated)
+- Jasmine: testframework mocken jasmine.createSpyObj()
+
+alternatieven:
+- Jest - experimental support sinds Angular v16
+- Vitest - experimental support sinds Angular v20
+- ongeacht je testrunner kun je er ook voor kiezen om je component te renderen met @testing-library
+  - doen React, Svelte, Vue, ... ook!
+
 ### Vitest
 
 1. Installeren:
-    ```sh
-    npm install vitest jsdom
-    ```
+   ```sh
+   npm install vitest jsdom
+   ```
 2. `angular.json`:
-    ```json
-    {
-      ...
-      "test": {
-        "builder": "@angular/build:unit-test",
-        "options": {
-          "tsConfig": "tsconfig.spec.json",
-          "runner": "vitest",
-          "buildTarget": "::development"
-        }
-      }
-    }
-    ```
+   ```json
+   {
+     ...
+     "test": {
+       "builder": "@angular/build:unit-test",
+       "options": {
+         "tsConfig": "tsconfig.spec.json",
+         "runner": "vitest",
+         "buildTarget": "::development"
+       }
+     }
+   }
+   ```
 3. [Handige extensie](https://marketplace.visualstudio.com/items?itemName=vitest.explorer)
 
 Handige blogposts/docs:
@@ -142,6 +168,44 @@ Handige blogposts/docs:
 - https://dev.to/brandontroberts/faster-testing-with-angular-and-vitest-274n
 
 Deze laatste twee zijn vooral ter inspiratie en cherrypicken van handige zaken. Beide artikelen zijn geschreven voordat Angular officieel met Vitest-ondersteuning kwam.
+
+### TDD: Test-driven development
+
+Eerst test, dan logica
+
+1. Schrijf een test
+2. Run de test en zie dat hij faalt
+3. Implementeer
+4. Run de test en zie dat hij slaagt
+5. Refactor
+
+Repeat. Ook wel: RED-GREEN-REFACTOR
+
+waarom?
+- goed uitdenken van implemenetatie
+- meer/betere dekking van code
+- beter met deadlines omgaan, kwaliteit niet zomaar laten sneuvelen
+- lastig: onbekende architectuur
+
+## How to clone an object?
+
+```ts
+// ES6
+let clone1 = { ...this.newAnimal }; // prima voor strings bool numbers  - arrays/objects worden gewoon bij ref overgenomen! "shallow clone"
+let clone2 = structuredClone(this.newAnimal); // strings bool numbers arrays/objects alles clone. "deep clone"
+```
+
+## Template-driven forms
+
+Je binding object initializeren:
+
+```ts
+export class App {
+  newAnimal: Animal = { id: 0, maxAge: 0, photoUrl: "", species: "" }; // kan beetje irritant worden
+  newAnimal = {} as Animal; // is niet iedereen fan van
+  newAnimal = createAnimal(); // vaak het "schoonst". en kan hergebruikt worden voor testdata bij unittesten
+}
+```
 
 ## Modern Angular-development
 
@@ -157,6 +221,7 @@ Angular zit momenteel in een nogal lang migratietraject. Maar, een paar moderne 
   - playwright 👍
 - zoneless
   - donderdag
+- change detection `OnPush`
 - buildtool
   - webpack
     - maakt mogelijk nog een comeback met [rspack](https://rspack.rs/)
