@@ -5,7 +5,7 @@ import { Component } from '@angular/core';
 	templateUrl: 'life.component.html',
 })
 export class LifeComponent {
-    intervalId!: number;
+    intervalId!: ReturnType<typeof setInterval>;
 
 	constructor() {
         // zo min mogelijk. DI. templateref. signals effect().
