@@ -1,5 +1,5 @@
 import { ApplicationConfig, provideBrowserGlobalErrorListeners, provideZonelessChangeDetection } from '@angular/core';
-import { provideRouter } from '@angular/router';
+import { provideRouter, withComponentInputBinding } from '@angular/router';
 
 import { routes } from './app.routes';
 import { NavigateService } from './services/navigate.service';
@@ -10,7 +10,7 @@ export const appConfig: ApplicationConfig = {
 		// globale instellingen / dependency injection
 		provideBrowserGlobalErrorListeners(),
 		provideZonelessChangeDetection(),
-		provideRouter(routes),
+		provideRouter(routes, withComponentInputBinding()),
 		provideHttpClient(),
 
 		// { provide: NavigateService, useClass: NavigateService }

@@ -1,93 +1,12 @@
 <h1 class="text-3xl font-bold underline">DierApp</h1>
 
-<h2 class="text-2xl font-bold">Autocompleter</h2>
+<nav>
+	<ol>
+		<li><a routerLink="/animals">dieren</a></li>
+		<li><a routerLink="/zooi/18">zooi 18</a></li>
+		<li><a routerLink="/zooi/85">zooi 85</a></li>
+		<li><a routerLink="/zooi/hoi">zooi hoi</a></li>
+	</ol>
+</nav>
 
-@if (animals) {
-	<app-autocompleter [data]="animals" (itemSelect)="handleSelect($event)" />
-}
-
-<h2 class="text-2xl font-bold">Leven</h2>
-
-<button class="btn btn-secondary" (click)="showLife = !showLife">Toggle life</button>
-
-@if (showLife) {
-	<app-life />
-}
-
-<h2 class="text-2xl font-bold">Dieren</h2>
-
-<div class="flex gap-10">
-	<form (submit)="addAnimal()" #f="ngForm">
-		<ol>
-			<li>
-				<label>Soort:</label>
-				<input
-					class="input not-[.ng-untouched]:not-[.ng-valid]:input-error"
-					[(ngModel)]="newAnimal.species"
-					name="species"
-					required
-					pattern="[a-zA-Z -]{3,}"
-					#inputSpecies="ngModel"
-				/>
-				@if (inputSpecies.touched && inputSpecies.invalid) {
-					<span>Ongeldig</span>
-				}
-				@if (inputSpecies.touched && inputSpecies.hasError('required')) {
-					<span>Vul in aub</span>
-				}
-				@if (inputSpecies.touched && inputSpecies.hasError('pattern')) {
-					<span>Alleen letters spaties graag en minimaal 3 karakters</span>
-				}
-			</li>
-			<li>
-				<label>Max leeftijd:</label>
-				<input
-					class="range"
-					[(ngModel)]="newAnimal.maxAge"
-					name="maxAge"
-					type="range"
-					min="0"
-					max="300"
-					step="5"
-					required
-				/>
-			</li>
-			<li>
-				<label>Foto URL:</label>
-				<input class="input" type="url" [(ngModel)]="newAnimal.photoUrl" name="photoUrl" required />
-			</li>
-			<li>
-				<button class="btn btn-primary" [disabled]="!f.valid">Voeg dier toe</button>
-			</li>
-			<li>
-				valid: {{ f.valid }}
-				<pre>{{ newAnimal | json }}</pre>
-			</li>
-		</ol>
-	</form>
-
-	@if (isFetchingAnimals) {
-		<app-loading message="Druk bezig met dieren ophalen!" />
-	} @else {
-		<table class="table w-auto">
-			<thead>
-				<tr>
-					<th>ID</th>
-					<th>Soort</th>
-					<th>Max leeftijd</th>
-					<th>Foto</th>
-				</tr>
-			</thead>
-			<tbody>
-				@for (animal of animals; track animal.id) {
-					<tr (mouseenter)="increaseMaxAge(animal)" [class.oud]="animal.maxAge > 50">
-						<td>{{ animal.id }}</td>
-						<td>{{ animal.species }}</td>
-						<td>{{ animal.maxAge }}</td>
-						<td><img src="{{ animal.photoUrl }}" /></td>
-					</tr>
-				}
-			</tbody>
-		</table>
-	}
-</div>
+<router-outlet />
