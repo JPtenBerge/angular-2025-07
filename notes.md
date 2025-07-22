@@ -287,13 +287,31 @@ Maar Zone.js heeft nooit bugs geintroduceerd of iets dergelijks. Grootste nadele
 - bij grotere projecten kan het wat magisch zijn hoe/wanneer een waarde verandert
   - en wanneer die magie op een gegeven moment niet meer werkt, moet men de magie debuggen. Da's meestal niet fijn.
 
+## Routing
+
+- `/anderepagina`
+- SPA: niet van `index.html` wegnavigeren
+
+Switchen naar pagina's/views mogelijkheden:
+
+1. alle 300 pagina's in-memory bewaren
+   - Angular's default
+2. alle 300 pagina's in HTML wegschrijven, waarvan 1 actief en 299 `display: none;`
+3. lazy loading
+
+Stappenplan:
+
+1. `<router-outlet />`
+2. routes definieren
+3. content verdelen <== meeste werk
+
 ## Modern Angular-development
 
 Angular zit momenteel in een nogal lang migratietraject. Maar, een paar moderne keuzes:
 
 - standalone components
 - signals in plaats van observables
-  - built-in modules: `HttpClient`
+  - built-in modules: `HttpClient` / `RouterModule`
 - unittesten niet meer met Karma/Jasmine, want Karma is deprecated
   - jest (experimental)
   - vitest (experimental) 👍
