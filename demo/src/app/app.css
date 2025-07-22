@@ -6,9 +6,9 @@ td img {
     background: lightgoldenrodyellow;
 }
 
-input.ng-touched.ng-invalid {
+/* input.ng-touched.ng-invalid {
     background: pink;
 }
 input.ng-touched.ng-valid {
     background: lightgreen;
-}
+} */

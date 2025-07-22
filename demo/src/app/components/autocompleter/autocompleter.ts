@@ -15,7 +15,6 @@ export class Autocompleter<T extends object> {
 	itemSelect = output<T>();
 
 	autocomplete() {
-
 		if (!this.query) {
 			this.suggestions = this.data();
 			return;
@@ -25,10 +24,7 @@ export class Autocompleter<T extends object> {
 
 		for (let item of this.data()) {
 			for (let prop of Object.keys(item) as (keyof typeof item)[]) {
-				if (
-					typeof item[prop] === 'string' &&
-					item[prop].toLowerCase().includes(this.query.toLowerCase())
-				) {
+				if (typeof item[prop] === 'string' && item[prop].toLowerCase().includes(this.query.toLowerCase())) {
 					this.suggestions.push(item);
 					break;
 				}
@@ -39,8 +35,7 @@ export class Autocompleter<T extends object> {
 	next() {
 		if (this.activeIndex !== null) {
 			// module sets index to the first item. nice!
-			this.activeIndex =
-				(this.activeIndex + 1) % this.suggestions!.length;
+			this.activeIndex = (this.activeIndex + 1) % this.suggestions!.length;
 			return;
 		}
 

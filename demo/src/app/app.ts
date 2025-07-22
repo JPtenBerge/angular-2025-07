@@ -57,7 +57,7 @@ export class App {
 
 		this.animals.push({
 			...this.newAnimal,
-			id: Math.max(...this.animals.map((x) => x.id)) + 1,
+			id: Math.max(...this.animals.map(x => x.id)) + 1,
 		});
 		// this.newAnimal = {} as Animal;
 		// newAnimal = createAnimal();
@@ -68,7 +68,6 @@ export class App {
 	increaseMaxAge(animal: Animal) {
 		animal.maxAge += 5;
 	}
-
 
 	handleSelect(animal: Animal) {
 		console.log('hey! er is iets geselecteerd bij el autocompleter:', animal);
