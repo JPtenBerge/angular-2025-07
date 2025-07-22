@@ -2,7 +2,9 @@
 
 <h2 class="text-2xl font-bold">Autocompleter</h2>
 
-<app-autocompleter [data]="animals" (itemSelect)="handleSelect($event)" />
+@if (animals) {
+	<app-autocompleter [data]="animals" (itemSelect)="handleSelect($event)" />
+}
 
 <h2 class="text-2xl font-bold">Leven</h2>
 
