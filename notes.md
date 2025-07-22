@@ -131,13 +131,20 @@ Default pipes:
 
 Standaard bij Angular:
 - Karma: testrunner (al meerdere jaren deprecated)
-- Jasmine: testframework mocken jasmine.createSpyObj()
+- Jasmine: testframework mocken `jasmine.createSpyObj()`
+  - [ng-mocks](https://www.npmjs.com/package/ng-mocks) is ook waardevol om makkelijk/snel te mocken. Niet alleen services, ook subcomponenten.
+    - Grootste nadeel van ng-mocks is dat het wel meegaat met Angular-versies, maar meerdere nieuwe zaken hebben nauwelijks/geen aandacht gekregen. Denk Vitest, maar ook signals
 
 alternatieven:
 - Jest - experimental support sinds Angular v16
 - Vitest - experimental support sinds Angular v20
-- ongeacht je testrunner kun je er ook voor kiezen om je component te renderen met @testing-library
+- ongeacht je testrunner kun je er ook voor kiezen om je component te renderen met [@testing-library](https://testing-library.com/docs/angular-testing-library/intro)
   - doen React, Svelte, Vue, ... ook!
+
+Ervaring tot nu toe:
+- Karma/Jasmine met ng-mocks werkt behoorlijk stabiel. Maar Karma is al jaren deprecated.
+- Vitest als runner werkt helemaal prima middels `ng test`, maar [via VS Code-extensie kost wat meer moeite](https://dev.to/imasserano/how-to-use-angular-20-experimental-vitest-support-outside-of-ng-test-2i66).
+- @testing-library met user-events zeer fijn om het renderen en vanaf een gebruikersperspectief te tikken/klikken/interacteren
 
 ### Vitest
 
@@ -215,12 +222,70 @@ export class App {
 }
 ```
 
+## Dependency injection
+
+- injecteren van afhankelijkheden
+- kan via:
+  - `constructor`
+  - `inject()` <== nieuwer sinds Angular v~14
+    - Angular wordt steeds functioneler. Minder classes, meer functies. `inject()` werkt in die gevallen keurig.
+- singleton
+- soorten services
+  - functionele service: NavigateService converteren berekenen
+  - DAL
+  - ...
+
+## Backendcommunicatie
+
+- native het werk van `fetch()` en `XMLHttpRequest`
+- `fetch()`
+  - gooit weinig/geen errors.  response.status
+  - parset JSON niet automatisch: `fetch('api/product').then(x => x.json())`
+    - en moet je zelf typen om typesafe in TypeScript te kunnen gebruiken
+  - interceptors voor bijv. JWTs mee te sturen met een request of om alle datums te parsen naar `Date`-instanties bij JSON-responses
+
+Angular biedt een `HttpClient`, prima ding, werkt wel met `Observable` en dus met RxJS. Met modern Angular-development is dat niet verboden, maar signals hebben wel de voorkeur. Kijk ook eens naar iets als [TanStack Query](https://tanstack.com/query/latest/docs/framework/angular/overview) die volledig signal-based is, maar ook toffe extra features heeft:
+- automatisch retry bij GET-requests
+- refetchen van data bij window refocus
+- loading state indicatoren
+- query caching / invalidation
+
+## Zone.js
+
+> it's like open-heart surgery on the browser
+
+Zone.js wrapt native async functies om te detecteren dat er async processen worden gestart/bezig zijn:
+
+```ts
+let originalTimeout = window.setTimeout;
+window.setTimeout = (callback, ms) => {
+	originalTimeout(() => {
+		callback();
+		updateAllDatabindings();
+	}, ms);
+};
+```
+
+Initieel was ik daar geen fan van, native zaken overschrijven was nooit heel fijn:
+
+```ts
+undefined = 'hoi';
+if (bla === undefined) // bla === 'hoi'
+```
+
+Maar Zone.js heeft nooit bugs geintroduceerd of iets dergelijks. Grootste nadelen wel:
+
+- ~50kb
+- bij grotere projecten kan het wat magisch zijn hoe/wanneer een waarde verandert
+  - en wanneer die magie op een gegeven moment niet meer werkt, moet men de magie debuggen. Da's meestal niet fijn.
+
 ## Modern Angular-development
 
 Angular zit momenteel in een nogal lang migratietraject. Maar, een paar moderne keuzes:
 
 - standalone components
 - signals in plaats van observables
+  - built-in modules: `HttpClient`
 - unittesten niet meer met Karma/Jasmine, want Karma is deprecated
   - jest (experimental)
   - vitest (experimental) 👍
