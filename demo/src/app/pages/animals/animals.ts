@@ -36,6 +36,7 @@ export class Animals {
 
 	ngOnInit() {
 		this.animalDal.getAll().subscribe(animals => {
+			console.log('animals!', animals);
 			this.animals = animals;
 			this.isFetchingAnimals = false;
 			this.cdr.markForCheck();
