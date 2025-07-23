@@ -50,6 +50,39 @@
 		</ol>
 	</form>
 
+	<form (submit)="addAnimalReactive()" [formGroup]="addAnimalForm">
+		<ol>
+			<li>
+				<label>Soort:</label>
+				<input class="input not-[.ng-untouched]:not-[.ng-valid]:input-error" formControlName="species" />
+				@if (addAnimalForm.controls.species.touched && addAnimalForm.controls.species.invalid) {
+					<span>Ongeldig</span>
+				}
+				@if (addAnimalForm.controls.species.touched && addAnimalForm.controls.species.hasError('required')) {
+					<span>Vul in aub</span>
+				}
+				@if (addAnimalForm.controls.species.touched && addAnimalForm.controls.species.hasError('pattern')) {
+					<span>Alleen letters spaties graag en minimaal 3 karakters</span>
+				}
+			</li>
+			<li>
+				<label>Max leeftijd:</label>
+				<input class="range" type="range" min="0" max="300" step="5" formControlName="maxAge" />
+			</li>
+			<li>
+				<label>Foto URL:</label>
+				<input class="input" type="url" formControlName="photoUrl" />
+			</li>
+			<li>
+				<button class="btn btn-primary" [disabled]="!addAnimalForm.valid">Voeg dier toe</button>
+			</li>
+			<li>
+				valid: {{ addAnimalForm.valid }}
+				<pre>{{ addAnimalForm.value | json }}</pre>
+			</li>
+		</ol>
+	</form>
+
 	@if (isFetchingAnimals) {
 		<app-loading message="Druk bezig met dieren ophalen!" />
 	} @else {
@@ -75,6 +108,5 @@
 		</table>
 	}
 </div>
-
 
 <router-outlet />
