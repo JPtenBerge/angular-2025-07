@@ -231,7 +231,7 @@ export class App {
 
 ### Reactive forms
 
-welk is beter? *ik vind* reactive forms fijner.
+welk is beter? _ik vind_ reactive forms fijner.
 
 - unittesten is met reactive makkelijker.
   - dit argument valt grotendeels weg als je @testing-library sowieso al je template rendert
@@ -314,9 +314,34 @@ Stappenplan:
 2. routes definieren
 3. content verdelen <== meeste werk
 
+## Vite en bundlegrootte
 
+Vite heeft 2 operatiemodi:
 
+- tijdens development gebruikt hij esbuild om te builden. Die is [lekker snel](https://esbuild.github.io/faq/#why-is-esbuild-fast) omdat die geen typechecking doet maar gewoon JavaScript uitspuugt.
+- voor productie gebruikt hij [Rollup](https://rollupjs.org/introduction/) (wellicht in toekomst het Rust-gebaseerde [Rolldown](https://rolldown.rs/guide/)).
 
+Er zijn bundle analyzers in de wereld: [webpack-bundle-analyzer](https://www.npmjs.com/package/webpack-bundle-analyzer),
+[rollup-plugin-visualizer](https://github.com/btd/rollup-plugin-visualizer), [vite-bundle-visualizer](https://www.npmjs.com/package/vite-bundle-visualizer). Maar Angular geeft de build config niet vrij, waardoor deze tools niet direct werken.
+
+Angular kan nog wel zo'n stats-bestandje genereren:
+
+```sh
+ng build --stats-json
+```
+
+Ook die krijg ik zo gauw nog niet aan de praat met die analyzers. Ook genereert dat commando een `stats.html`, maar die openen resulteert ook in een lege pagina met errors op de console.
+
+## Directives
+
+```html
+<div jouwCustomDing></div>
+```
+
+- bestaande elementen/componenten uitbreiden
+- componenten zonder view/template
+
+Structural directives: `*ngIf` `*ngFor` `*rxLet`
 
 ## Modern Angular-development
 
