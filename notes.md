@@ -380,6 +380,16 @@ In het scenario dat je via met POST iets naar de server stuurt.
   - read/write
   - _is_ een observable! `Subject<T> extends Observable<T>`
 
+### Levels van RxJS/reactivity-begrip
+
+1. Observables, `.subscribe()`, verschillende subjects, reactivity flow snappen
+2. basic veelgebruikte operators: `map`, `filter`, `debounceTime`, `skip`/`take`/`first`/`last`/`min`/`max`/`count`
+3. unittesten met observables: `of()`
+4. samenwerken/synchronizeren/"wanneer wat" met promises/signals  `toSignal()`, `lastValueFrom()`
+5. principes: geen `.subscribe()` in component (`| async`), opruimen met destroy mixin en `takeUntil()`
+   - `DestroyRef`!
+6. advanced operators en meerdere observables met elkaar mengen: `switchMap`, `mergeMap`, `iif`
+
 ## Modern Angular-development
 
 Angular zit momenteel in een nogal lang migratietraject. Maar, een paar moderne keuzes:
