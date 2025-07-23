@@ -98,7 +98,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				@for (animal of animals; track animal.id) {
+				@for (animal of animal$ | async; track animal.id) {
 					<tr (mouseenter)="increaseMaxAge(animal)" [class.bg-[lightgoldenrodyellow]]="animal.maxAge > 50">
 						<td>{{ animal.id }}</td>
 						<td>{{ animal.species }}</td>

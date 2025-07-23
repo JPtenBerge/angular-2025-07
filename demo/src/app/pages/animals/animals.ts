@@ -1,4 +1,4 @@
-import { JsonPipe } from '@angular/common';
+import { AsyncPipe, JsonPipe } from '@angular/common';
 import { ChangeDetectorRef, Component, inject } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, FormsModule, NgForm, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterOutlet } from '@angular/router';
@@ -7,6 +7,7 @@ import { HttpClient } from '@angular/common/http';
 import { Loading } from '../../components/loading/loading';
 import { Animal } from '../../models/animal';
 import { AnimalDal } from '../../dal/animal.dal';
+import { Observable } from 'rxjs';
 
 function mijnCustomValidator(c: AbstractControl) {
 	return null;
@@ -14,12 +15,14 @@ function mijnCustomValidator(c: AbstractControl) {
 
 @Component({
 	selector: 'app-animals',
-	imports: [RouterOutlet, FormsModule, ReactiveFormsModule, JsonPipe, Loading],
+	imports: [RouterOutlet, FormsModule, ReactiveFormsModule, JsonPipe, Loading, AsyncPipe],
 	templateUrl: './animals.html',
 })
 export class Animals {
 	animals?: Animal[];
-	isFetchingAnimals = true;
+	animal$!: Observable<Animal[]>;
+
+	isFetchingAnimals = false;
 	newAnimal = {} as Omit<Animal, 'id'>;
 
 	animalDal = inject(AnimalDal);
@@ -35,12 +38,13 @@ export class Animals {
 	});
 
 	ngOnInit() {
-		this.animalDal.getAll().subscribe(animals => {
-			console.log('animals!', animals);
-			this.animals = animals;
-			this.isFetchingAnimals = false;
-			this.cdr.markForCheck();
-		});
+		// this.animalDal.getAll().subscribe(animals => {
+		// 	console.log('animals!', animals);
+		// 	this.animals = animals;
+		// 	this.isFetchingAnimals = false;
+		// 	this.cdr.markForCheck();
+		// });
+		this.animal$ = this.animalDal.getAll();
 	}
 
 	addAnimal(form: NgForm) {

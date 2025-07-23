@@ -1,17 +1,20 @@
-import { Component } from '@angular/core';
-import { BehaviorSubject, filter, map, ReplaySubject, Subject } from 'rxjs';
+import { Component, DestroyRef, input } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { BehaviorSubject, filter, map, ReplaySubject, Subject, Subscription, takeUntil } from 'rxjs';
+import { destroyMixin } from '../../utils/destroy-mixin';
 
 @Component({
 	selector: 'app-reactive',
 	imports: [],
 	templateUrl: './reactive.html',
 })
-export class Reactive {
+export class Reactive extends destroyMixin() {
+	subscription!: Subscription;
+
 	ngOnInit() {
 		let subject = new ReplaySubject<number>(2);
 
 		let observable = subject.asObservable();
-
 
 		// setTimeout(() => {
 		subject.next(4);
@@ -28,8 +31,16 @@ export class Reactive {
 		subject.next(23);
 		subject.next(42);
 
-		observable.subscribe(value => console.log('obs 1:', value));
-
-
+		this.subscription = observable.pipe(takeUntil(this.destroy$)).subscribe(value => console.log('obs 1:', value));
 	}
+
+	// ngOnDestroy() {
+	// 	this.subscription.unsubscribe();
+	// 	this.subscription.unsubscribe();
+	// 	this.subscription.unsubscribe();
+	// 	this.subscription.unsubscribe();
+	// 	this.subscription.unsubscribe();
+	// 	this.subscription.unsubscribe();
+	// 	this.subscription.unsubscribe();
+	// }
 }
