@@ -343,6 +343,43 @@ Ook die krijg ik zo gauw nog niet aan de praat met die analyzers. Ook genereert 
 
 Structural directives: `*ngIf` `*ngFor` `*rxLet`
 
+## Hoe ververs ik mijn lijstje?
+
+In het scenario dat je via met POST iets naar de server stuurt.
+
+1. meteen mijn lokale array bijwerken - `animals.push(newAnimal);`
+   - Optimistic UI
+   - voordelen:
+     - snel. de gebruiker ziet het meteen.
+     - niet heel erg serverbelastend
+   - nadelen:
+     - niet in sync met server data: je hebt nog geen id wanneer je het object toevoegt aan de array
+     - mocht de POST errorren, dan heb je hem al wel toegevoegd aan de lijst.
+       - communicatie/intuitieve UI is heul belangrijk
+2. de POST afwacht voordat je je lokale array bijwerkt. POST heeft vaak een response
+   met de bijgewerkte entity, een mooie id bijv.
+   - voordeel:
+     - je kan de gebruiker laten weten dat het goed ging. met toast bijv.
+     - niet heel erg serverbelastend
+     - meer in sync met server: je hebt een id!
+   - nadeel:
+     - minder snel. je wacht de POST af.
+3. na de POST een volledige nieuwe GET om alle data compleet vers op te halen
+   - voordelen
+     - meest in sync met server
+     - vaak het gemakkelijkst om te implementeren - `getAll()` aanroepen
+   - nadelen:
+     - NOG minder snel, nu de POST EN de GET afwachten.
+     - extra request, extra serverbelastend
+
+## RxJS
+
+- `Observable<T>`, herkenbaar aan `.subscribe()`
+  - read-only
+- `Subject<T>`
+  - read/write
+  - _is_ een observable! `Subject<T> extends Observable<T>`
+
 ## Modern Angular-development
 
 Angular zit momenteel in een nogal lang migratietraject. Maar, een paar moderne keuzes:
