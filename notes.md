@@ -229,6 +229,15 @@ export class App {
 }
 ```
 
+### Reactive forms
+
+welk is beter? *ik vind* reactive forms fijner.
+
+- unittesten is met reactive makkelijker.
+  - dit argument valt grotendeels weg als je @testing-library sowieso al je template rendert
+- custom validators zijn makkelijker
+  - gewoon een functie bij reactive. een directive bij template-driven, klein drempeltje
+
 ## Dependency injection
 
 - injecteren van afhankelijkheden
@@ -304,6 +313,10 @@ Stappenplan:
 1. `<router-outlet />`
 2. routes definieren
 3. content verdelen <== meeste werk
+
+
+
+
 
 ## Modern Angular-development
 
