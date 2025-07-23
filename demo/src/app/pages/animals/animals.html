@@ -1,7 +1,8 @@
 <h1 class="text-2xl font-bold">Dieren</h1>
 
 <div class="flex gap-10">
-	<form (submit)="addAnimal()" #f="ngForm">
+	<form (submit)="addAnimal(f)" #f="ngForm">
+		<h2 class="font-bold text-xl">Template-driven</h2>
 		<ol>
 			<li>
 				<label>Soort:</label>
@@ -51,6 +52,7 @@
 	</form>
 
 	<form (submit)="addAnimalReactive()" [formGroup]="addAnimalForm">
+		<h2 class="font-bold text-xl">Reactive (model-driven)</h2>
 		<ol>
 			<li>
 				<label>Soort:</label>

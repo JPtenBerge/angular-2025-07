@@ -1,11 +1,12 @@
 import { JsonPipe } from '@angular/common';
 import { ChangeDetectorRef, Component, inject } from '@angular/core';
-import { AbstractControl, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { AbstractControl, FormControl, FormGroup, FormsModule, NgForm, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterOutlet } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 
 import { Loading } from '../../components/loading/loading';
 import { Animal } from '../../models/animal';
+import { AnimalDal } from '../../dal/animal.dal';
 
 function mijnCustomValidator(c: AbstractControl) {
 	return null;
@@ -19,30 +20,35 @@ function mijnCustomValidator(c: AbstractControl) {
 export class Animals {
 	animals?: Animal[];
 	isFetchingAnimals = true;
-	newAnimal = {} as Animal;
+	newAnimal = {} as Omit<Animal, 'id'>;
 
-	http = inject(HttpClient);
+	animalDal = inject(AnimalDal);
 	cdr = inject(ChangeDetectorRef);
 
 	addAnimalForm = new FormGroup({
-		species: new FormControl<string>('', [Validators.required, Validators.pattern('[a-zA-Z -]{3,}'), mijnCustomValidator]),
-		maxAge: new FormControl<number>(0, Validators.required),
-		photoUrl: new FormControl<string>('', Validators.required),
+		species: new FormControl<string>('', {
+			nonNullable: true,
+			validators: [Validators.required, Validators.pattern('[a-zA-Z -]{3,}'), mijnCustomValidator],
+		}),
+		maxAge: new FormControl<number>(0, { nonNullable: true, validators: Validators.required }),
+		photoUrl: new FormControl<string>('', { nonNullable: true, validators: Validators.required }),
 	});
 
 	ngOnInit() {
-		this.http.get<Animal[]>('http://localhost:3000/animals').subscribe(animals => {
+		this.animalDal.getAll().subscribe(animals => {
 			this.animals = animals;
 			this.isFetchingAnimals = false;
 			this.cdr.markForCheck();
 		});
 	}
 
-	addAnimal() {
-		this.http.post('http://localhost:3000/animals', this.newAnimal).subscribe();
+	addAnimal(form: NgForm) {
+		this.animalDal.add(this.newAnimal);
+		form.reset();
 	}
 	addAnimalReactive() {
-		this.http.post('http://localhost:3000/animals', this.addAnimalForm.value).subscribe();
+		this.animalDal.add(this.addAnimalForm.getRawValue());
+		this.addAnimalForm.reset();
 	}
 
 	increaseMaxAge(animal: Animal) {
