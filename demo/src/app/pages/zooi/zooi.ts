@@ -4,10 +4,11 @@ import { LifeComponent } from '../../components/life.component';
 import { Autocompleter } from '../../components/autocompleter/autocompleter';
 import { HttpClient } from '@angular/common/http';
 import { Animal } from '../../models/animal';
+import { FancyDirective } from '../../directives/fancy.directive';
 
 @Component({
 	selector: 'app-zooi',
-	imports: [FormsModule, LifeComponent, Autocompleter],
+	imports: [FormsModule, LifeComponent, Autocompleter, FancyDirective],
 	templateUrl: './zooi.html',
 })
 export class Zooi {

@@ -1,15 +1,15 @@
-<h1 class="text-3xl font-bold underline">Zooi</h1>
+<h1 class="text-3xl font-bold underline" fancy>Zooi</h1>
 
 <h2 class="text-2xl font-bold">Autocompleter</h2>
 
 @if (animals) {
-	<app-autocompleter [data]="animals" (itemSelect)="handleSelect($event)" />
+	<app-autocompleter [data]="animals" (itemSelect)="handleSelect($event)" fancy />
 }
 
-<h2 class="text-2xl font-bold">Leven</h2>
+<h2 class="text-2xl font-bold" fancy>Leven</h2>
 
 <button class="btn btn-secondary" (click)="showLife = !showLife">Toggle life</button>
 
 @if (showLife) {
-	<app-life />
+	<app-life fancy="red" />
 }
