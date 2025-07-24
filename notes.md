@@ -428,6 +428,46 @@ Toekomst.
   }
   ```
 
+## UI/End-to-end testing
+
+Hoop keuzes!
+
+- Cypress
+- Playwright
+- Selenium
+- Webdriver.io
+- TestCafe
+- Protractor (dood)
+- Nightwatch
+
+Zie ook [de jaarlijkse State of JS survey](https://2024.stateofjs.com/en-US/libraries/testing/).
+
+Playwright:
+
+- Microsoft
+- TypeScript helemaal dikke prima
+  - alternatief: Python en C#
+- robuust
+- browsers: Chromium Firefox Webkit
+- statements worden direct uitgevoerd
+- auto-waiting
+
+Cypress:
+
+- TypeScript-ondersteuning is meh. Alles beschrijven in `.d.ts`, beschrijvingen kunnen incompleet zijn vs implementatie
+- Promises
+  ```ts
+  cy.visit('https://localhost');
+
+  cy.get('...').type('...');
+  cy.get('...')
+
+  await prom;
+  ```
+- architectuur
+- paywall
+- browsersupport Chromium
+
 ## Modern Angular-development
 
 Angular zit momenteel in een nogal lang migratietraject. Maar, een paar moderne keuzes:
