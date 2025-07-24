@@ -5,9 +5,9 @@
 	(keydown.enter)="select()"
 />
 
-@if (suggestions) {
+@if (suggestions()) {
 	<ul>
-		@for (suggestion of suggestions; track suggestion) {
+		@for (suggestion of suggestions(); track suggestion) {
 			<li [class.bg-slate-300]="$index == activeIndex">{{ suggestion | json }} {{ $index }}</li>
 		}
 	</ul>
