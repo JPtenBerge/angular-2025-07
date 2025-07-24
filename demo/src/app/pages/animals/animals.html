@@ -5,7 +5,7 @@
 		<h2 class="font-bold text-xl">Template-driven</h2>
 		<ol>
 			<li>
-				<label>Soort:</label>
+				<label for="input-species">Soort:</label>
 				<input
 					class="input not-[.ng-untouched]:not-[.ng-valid]:input-error"
 					[(ngModel)]="newAnimal.species"
@@ -13,6 +13,7 @@
 					required
 					pattern="[a-zA-Z -]{3,}"
 					#inputSpecies="ngModel"
+					id="input-species"
 				/>
 				@if (inputSpecies.touched && inputSpecies.invalid) {
 					<span>Ongeldig</span>
@@ -25,8 +26,9 @@
 				}
 			</li>
 			<li>
-				<label>Max leeftijd:</label>
+				<label for="input-max-age">Max leeftijd:</label>
 				<input
+					id="input-max-age"
 					class="range"
 					[(ngModel)]="newAnimal.maxAge"
 					name="maxAge"
@@ -38,11 +40,11 @@
 				/>
 			</li>
 			<li>
-				<label>Foto URL:</label>
-				<input class="input" type="url" [(ngModel)]="newAnimal.photoUrl" name="photoUrl" required />
+				<label for="input-photo-url">Foto URL:</label>
+				<input id="input-photo-url" class="input" type="url" [(ngModel)]="newAnimal.photoUrl" name="photoUrl" required />
 			</li>
 			<li>
-				<button class="btn btn-primary" [disabled]="!f.valid">Voeg dier toe</button>
+				<button class="btn btn-primary" [disabled]="!f.valid">Voeg template-driven dier toe</button>
 			</li>
 			<li>
 				valid: {{ f.valid }}
