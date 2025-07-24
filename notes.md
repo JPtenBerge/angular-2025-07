@@ -390,6 +390,44 @@ In het scenario dat je via met POST iets naar de server stuurt.
    - `DestroyRef`!
 6. advanced operators en meerdere observables met elkaar mengen: `switchMap`, `mergeMap`, `iif`
 
+## Signals
+
+- native Angular reactivity
+  - mogelijk geen RxJS meer nodig, wederom kleinere bundle
+- versimpelde reactivity
+  - simpelere RxJS
+  - geen operators/pipes, maar vanouds imperatief uitprogrammeren wat je met een reactive waarde wil doen
+  - `BehaviorSubject` met `distinctUntilChanged()`
+- fijn in combinatie met Zoneless/`OnPush`
+  - met signals worden template wel opnieuw gerenderd, dus geen/veel minder `.markForCheck()` nodig
+- automatisch opruimen dankzij dependency graph
+  - scheelt veel `.unsubscribe()`/`takeUntil()`
+
+Toekomst.
+
+- nog meer fine-grained DOM updates en daarmee nog betere performance
+- forms/routing/http met signal-gebaseerde implementaties
+- mogelijk alle reactive values met signals en geen "transparent reactivity" meer? Dus in plaats van dit:
+  ```ts
+  export class Home {
+    name = 'Frank';
+
+    changeName() {
+      this.name = 'Pete';
+    }
+  }
+  ```
+  dit:
+  ```ts
+  export class Home {
+    name = signal('Frank');
+
+    changeName() {
+      this.name.set('Pete');
+    }
+  }
+  ```
+
 ## Modern Angular-development
 
 Angular zit momenteel in een nogal lang migratietraject. Maar, een paar moderne keuzes:
