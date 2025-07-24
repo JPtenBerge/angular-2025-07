@@ -19,8 +19,17 @@ export class CarViewer {
 		}
 	}
 
+	ngAfterViewInit() {
+		this.cars().forEach(c => (c.make += 'p'));
+		this.cdr.detectChanges();
+	}
+	ngAfterViewChecked() {
+		this.cars().forEach(c => (c.make += 'm'));
+		this.cdr.detectChanges();
+	}
+
 	getDisplayValue(car: Car) {
-		car.make += 'q';
+		car.make += 'q'; // dit hoort een error te gooien, ExpressionChangedAfterItHasBeenCheckedError
 		return `${car.make} ${car.model}`;
 	}
 
