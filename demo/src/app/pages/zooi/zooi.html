@@ -18,3 +18,9 @@
 name: {{name}}
 
 <button (click)="changeName()">Verander naam</button>
+
+<h2 class="text-xl font-bold">Auth</h2>
+
+<!-- for now this is fine: -->
+<button class="btn btn-secondary" (click)="authService.login()">Login</button>&nbsp;
+<button class="btn btn-secondary" (click)="authService.logout()">Loguit</button>

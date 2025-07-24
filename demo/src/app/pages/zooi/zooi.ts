@@ -5,6 +5,8 @@ import { Autocompleter } from '../../components/autocompleter/autocompleter';
 import { HttpClient } from '@angular/common/http';
 import { Animal } from '../../models/animal';
 import { FancyDirective } from '../../directives/fancy.directive';
+import { AuthService } from '../../services/auth.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
 	selector: 'app-zooi',
@@ -29,6 +31,11 @@ export class Zooi {
 
 	http = inject(HttpClient);
 	cdr = inject(ChangeDetectorRef);
+	authService = inject(AuthService);
+	route = inject(ActivatedRoute);
+	router = inject(Router);
+
+
 	// route = inject(ActivatedRoute);
 
 	ngOnInit() {
@@ -40,6 +47,8 @@ export class Zooi {
 			this.animals = animals;
 			this.cdr.markForCheck();
 		});
+
+		// this.router.navigate(['/animals']);
 	}
 
 	handleSelect(animal: Animal) {
