@@ -396,20 +396,32 @@ Angular zit momenteel in een nogal lang migratietraject. Maar, een paar moderne 
 
 - standalone components
 - signals in plaats van observables
-  - built-in modules: `HttpClient` / `RouterModule`
+  - built-in modules `HttpClient` / `RouterModule` / `ReactiveFormsModule` werken nog wel met observables
+    - in plaats van `HttpClient` kun je signal-based `httpResource` gebruiken, maar [die wordt afgeraden voor POST-/PUT-requests en gebruikt onder water nog steeds de `HttpClient`](https://angular.dev/guide/http/http-resource)
+      > `httpResource` is a reactive wrapper around `HttpClient` that gives you the request status and response as signals
+    - in plaats van `HttpClient` is [TanStack Query](https://tanstack.com/query/latest/docs/framework/angular/overview) een waardig signal-based alternatief (wel experimental!)
 - unittesten niet meer met Karma/Jasmine, want Karma is deprecated
   - jest (experimental)
   - vitest (experimental) 👍
 - end-to-end testen niet meer met Protractor, want deprecated
   - cypress
   - playwright 👍
-- zoneless
-  - donderdag
-- change detection `OnPush`
+- zoneless werken:
+  ```ts
+  export const appConfig: ApplicationConfig = {
+    providers: [
+      provideBrowserGlobalErrorListeners(),
+      provideZonelessChangeDetection(),
+      // ...
+    ],
+  };
+  ```
+- change detection `OnPush` voor minder magie en meer performance
 - buildtool
   - webpack
     - maakt mogelijk nog een comeback met [rspack](https://rspack.rs/)
   - Vite 👍
     - zie ook [Why Vite](https://vite.dev/guide/why). Snelheid en HMR zijn sterke argumenten.
 - styling
+  - Component-gescopete SCSS is prima
   - Tailwind 👍
