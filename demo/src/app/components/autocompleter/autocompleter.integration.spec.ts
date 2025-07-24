@@ -6,11 +6,7 @@ import '@testing-library/jest-dom/vitest';
 
 import { Autocompleter } from './autocompleter';
 import { NavigateService } from '../../services/navigate.service';
-
-interface Car {
-	make: string;
-	model: string;
-}
+import { Car } from '../../models/car';
 
 // deze tests werken (helaasch) momenteel enkel via ng test, niet via de Vitest-extensie.
 

@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, inject, input, viewChild } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, inject, input, viewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { LifeComponent } from '../../components/life.component';
 import { Autocompleter } from '../../components/autocompleter/autocompleter';
@@ -10,8 +10,15 @@ import { FancyDirective } from '../../directives/fancy.directive';
 	selector: 'app-zooi',
 	imports: [FormsModule, LifeComponent, Autocompleter, FancyDirective],
 	templateUrl: './zooi.html',
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Zooi {
+	name = 'JP';
+
+	changeName() {
+		this.name = 'Daniel';
+	}
+
 	showLife = false;
 	animals?: Animal[];
 	newAnimal = {} as Animal;

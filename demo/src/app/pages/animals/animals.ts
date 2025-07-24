@@ -1,6 +1,6 @@
 import { AsyncPipe, JsonPipe } from '@angular/common';
 import { ChangeDetectorRef, Component, inject } from '@angular/core';
-import { AbstractControl, FormControl, FormGroup, FormsModule, NgForm, ReactiveFormsModule, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormControl, FormGroup, FormsModule, NgForm, NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterOutlet } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 
@@ -36,6 +36,13 @@ export class Animals {
 		maxAge: new FormControl<number>(0, { nonNullable: true, validators: Validators.required }),
 		photoUrl: new FormControl<string>('', { nonNullable: true, validators: Validators.required }),
 	});
+
+	// fb = inject(NonNullableFormBuilder);
+	// addAnimalForm2 = this.fb.group({
+	// 	species: ['', [Validators.required, Validators.pattern('[a-zA-Z -]{3,}'), mijnCustomValidator]],
+	// 	maxAge: [0, Validators.required],
+	// 	photoUrl: ['', Validators.required],
+	// });
 
 	ngOnInit() {
 		// this.animalDal.getAll().subscribe(animals => {
