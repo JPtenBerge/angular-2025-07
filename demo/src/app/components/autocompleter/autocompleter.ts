@@ -30,7 +30,7 @@ export class Autocompleter<T extends object> {
 		console.log('autocompleting!', this.query.value);
 		if (!this.query) {
 			this.suggestions = this.data();
-			this.cdr.markForCheck();
+			this.cdr.markForCheck(); // defining suggestions as an observable and binding it with | async would be cleaner. using signals would too.
 			return;
 		}
 
@@ -48,7 +48,7 @@ export class Autocompleter<T extends object> {
 			}
 		}
 
-		this.cdr.markForCheck();
+		this.cdr.markForCheck(); // defining suggestions as an observable and binding it with | async would be cleaner. using signals would too.
 	}
 
 	next() {
