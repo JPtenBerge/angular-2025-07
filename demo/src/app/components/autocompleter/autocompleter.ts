@@ -1,5 +1,5 @@
 import { JsonPipe } from '@angular/common';
-import { Component, inject, input, output } from '@angular/core';
+import { ChangeDetectorRef, Component, inject, input, output } from '@angular/core';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NavigateService } from '../../services/navigate.service';
 import { debounceTime, distinctUntilChanged } from 'rxjs';
@@ -17,6 +17,7 @@ export class Autocompleter<T extends object> {
 	itemSelect = output<T>();
 
 	navigateService = inject(NavigateService);
+	cdr = inject(ChangeDetectorRef);
 
 	ngOnInit() {
 		this.query.valueChanges
@@ -29,6 +30,7 @@ export class Autocompleter<T extends object> {
 		console.log('autocompleting!', this.query.value);
 		if (!this.query) {
 			this.suggestions = this.data();
+			this.cdr.markForCheck();
 			return;
 		}
 
@@ -45,6 +47,8 @@ export class Autocompleter<T extends object> {
 				}
 			}
 		}
+
+		this.cdr.markForCheck();
 	}
 
 	next() {
